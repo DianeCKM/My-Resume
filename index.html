@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>Kaiman Chen | QA Engineer & Data Analyst</title>
+    <meta name="title" content="Kaiman Chen | QA Engineer & Data Analyst">
+    <meta name="description" content="A detail-oriented professional with a strong background in data analysis and business intelligence. Experienced in QA engineering, data analytics, and cross-border collaboration.">
+    <meta name="keywords" content="Kaiman Chen, QA Engineer, Data Analyst, Hong Kong, Data Analysis, Business Intelligence, Quality Assurance">
+    <meta name="author" content="Kaiman Chen">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io">
+    <meta property="og:title" content="Kaiman Chen | QA Engineer & Data Analyst">
+    <meta property="og:description" content="A detail-oriented professional with a strong background in data analysis and business intelligence.">
+    <meta property="og:image" content="https://yourusername.github.io/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io">
+    <meta property="twitter:title" content="Kaiman Chen | QA Engineer & Data Analyst">
+    <meta property="twitter:description" content="A detail-oriented professional with a strong background in data analysis and business intelligence.">
+    <meta property="twitter:image" content="https://yourusername.github.io/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>K</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'void': '#080808',
+                        'void-light': '#1a1a1a',
+                        'cream': '#FAF0E6',
+                        'accent': '#FFEF00',
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #080808;
+            color: #FAF0E6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #FFEF00;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 239, 0, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease;
+        }
+        
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(250, 240, 230, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(250, 240, 230, 0.1);
+        }
+        
+        /* Liquid Background Animation */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .liquid-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #080808 100%);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+        
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #0f0f23 0%, #080808 100%);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+        
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #1a1a3a 0%, #080808 100%);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(-50px, -30px) scale(1.05); }
+        }
+        
+        /* Arrow Float Animation */
+        @keyframes arrowFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        .arrow-float {
+            animation: arrowFloat 1.5s ease-in-out infinite;
+        }
+        
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+        
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Magnetic Link Effect */
+        .magnetic-link {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Explore Button */
+        .explore-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #FFEF00;
+            font-size: 1.125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+        }
+        
+        .explore-btn:hover {
+            background: rgba(255, 239, 0, 0.1);
+        }
+        
+        .explore-btn:focus {
+            outline: 2px solid #FFEF00;
+            outline-offset: 4px;
+        }
+        
+        /* Accent Button */
+        .btn-accent {
+            background: #FFEF00;
+            color: #080808;
+            padding: 16px 40px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-accent:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 239, 0, 0.4);
+        }
+        
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .bento-item {
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .bento-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bento-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        /* Tag Hover Effect */
+        .tag-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .tag-hover:hover {
+            color: #FFEF00;
+            border-color: #FFEF00;
+            font-weight: 700;
+        }
+        
+        /* Skill Tag */
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(250, 240, 230, 0.1);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(255, 239, 0, 0.1);
+            border-color: rgba(255, 239, 0, 0.5);
+            transform: scale(1.05);
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(250, 240, 230, 0.2), transparent);
+            margin: 100px 0;
+        }
+        
+        /* Hero Text Animation */
+        .hero-char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        
+        /* Timeline Styles */
+        .timeline-item {
+            transition: all 0.4s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .timeline-content {
+            transition: opacity 0.3s ease;
+        }
+        
+        .timeline-item:hover .timeline-content {
+            opacity: 1;
+        }
+        
+        .timeline-item:not(:hover) .timeline-content {
+            opacity: 0.7;
+        }
+        
+        .timeline-container:hover .timeline-item:not(:hover) {
+            opacity: 0.4;
+        }
+        
+        /* Achievement List */
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .achievement-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .achievement-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background: #FFEF00;
+            border-radius: 50%;
+        }
+        
+        /* Education Item */
+        .education-item {
+            margin-bottom: 16px;
+        }
+        
+        .education-school {
+            font-weight: 700;
+            color: #FAF0E6;
+            font-size: 1rem;
+        }
+        
+        .education-degree {
+            font-size: 0.875rem;
+            color: rgba(250, 240, 230, 0.6);
+            margin-top: 4px;
+        }
+        
+        /* Footer Title */
+        .footer-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bento-large {
+                grid-column: span 2;
+            }
+            .footer-title {
+                white-space: normal;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-follower { display: none; }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .bento-large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .footer-title {
+                font-size: 2.5rem;
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Custom Cursor -->
+        <div class="cursor" ref="cursor"></div>
+        <div class="cursor-follower" ref="cursorFollower"></div>
+        
+        <!-- Noise Overlay -->
+        <div class="noise-overlay"></div>
+        
+        <!-- Liquid Background -->
+        <div class="liquid-bg">
+            <div class="liquid-blob blob-1"></div>
+            <div class="liquid-blob blob-2"></div>
+            <div class="liquid-blob blob-3"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <main class="relative z-10">
+            
+            <!-- HERO SECTION -->
+            <section class="min-h-screen flex items-center justify-center px-8 lg:px-20" ref="heroSection" id="hero">
+                <div class="text-center">
+                    <!-- Name -->
+                    <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-6" ref="heroName">
+                        <span v-for="(char, index) in profileData.name" :key="index" class="hero-char">
+                            {{ char === ' ' ? '\u00A0' : char }}
+                        </span>
+                    </h1>
+                    
+                    <!-- Title -->
+                    <div class="overflow-hidden mb-12">
+                        <p class="text-2xl md:text-4xl lg:text-5xl text-cream/70 font-light" ref="heroTitle">
+                            {{ profileData.titles.join(' / ') }}
+                        </p>
+                    </div>
+                    
+                    <!-- Explore Button -->
+                    <button 
+                        @click="scrollToAbout" 
+                        class="explore-btn magnetic-link"
+                        ref="exploreBtn"
+                        aria-label="Scroll to About section"
+                    >
+                        <span>Explore</span>
+                        <i data-lucide="chevron-down" class="w-6 h-6 arrow-float"></i>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- ABOUT SECTION - Bento Grid -->
+            <section class="px-8 lg:px-20 py-20" ref="aboutSection" id="about" aria-labelledby="about-heading">
+                <div class="max-w-7xl mx-auto">
+                    <h2 id="about-heading" class="text-sm tracking-widest uppercase text-cream/50 mb-12 reveal">About</h2>
+                    
+                    <div class="bento-grid">
+                        <!-- Main Bio -->
+                        <div class="bento-item bento-large glass reveal">
+                            <h3 class="text-3xl md:text-4xl font-semibold mb-6">Hello, I'm {{ profileData.firstName }}</h3>
+                            <p class="text-lg text-cream/70 leading-relaxed">{{ profileData.bio }}</p>
+                            <div class="mt-8 flex flex-wrap gap-3">
+                                <span v-for="tag in profileData.tags" :key="tag" class="tag-hover px-4 py-2 rounded-full border border-cream/20 text-sm">
+                                    {{ tag }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience Years -->
+                        <div class="bento-item glass reveal">
+                            <div class="flex items-start justify-between mb-4">
+                                <i data-lucide="briefcase" class="w-8 h-8 text-accent"></i>
+                                <span class="text-5xl font-bold">{{ profileData.experienceYears }}+</span>
+                            </div>
+                            <p class="text-cream/60">Years of data experience</p>
+                        </div>
+                        
+                        <!-- Location -->
+                        <div class="bento-item glass reveal">
+                            <div class="flex items-start justify-between mb-4">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-accent"></i>
+                                <span class="text-2xl font-semibold">{{ profileData.location }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Education -->
+                        <div class="bento-item glass reveal">
+                            <h4 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-accent"></i>
+                                Education
+                            </h4>
+                            <div class="space-y-4">
+                                <div v-for="edu in profileData.education" :key="edu.school" class="education-item">
+                                    <p class="education-school">{{ edu.school }}</p>
+                                    <p class="education-degree">{{ edu.degree }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Publications -->
+                        <div class="bento-item glass reveal">
+                            <h4 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-5 h-5 text-accent"></i>
+                                Publications
+                            </h4>
+                            <div class="space-y-3">
+                                <div v-for="pub in profileData.publications" :key="pub.title" class="text-sm">
+                                    <span class="px-2 py-1 bg-accent/20 text-accent rounded text-xs font-bold">{{ pub.type }}</span>
+                                    <p class="text-cream/60 mt-2 line-clamp-3">{{ pub.title }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="section-divider max-w-7xl mx-auto"></div>
+            
+            <!-- EXPERIENCE SECTION -->
+            <section class="px-8 lg:px-20 py-20" ref="experienceSection" id="experience" aria-labelledby="experience-heading">
+                <div class="max-w-5xl mx-auto">
+                    <h2 id="experience-heading" class="text-sm tracking-widest uppercase text-cream/50 mb-12 reveal">Experience</h2>
+                    
+                    <div class="timeline-container space-y-0">
+                        <div v-for="(exp, index) in profileData.experience" :key="index" 
+                             class="timeline-item relative pl-8 md:pl-16 pb-16 border-l border-cream/20 last:border-0 last:pb-0 reveal">
+                            
+                            <!-- Timeline Dot -->
+                            <div class="absolute left-0 top-0 w-4 h-4 -translate-x-1/2 rounded-full bg-void border-2 border-accent"></div>
+                            
+                            <!-- Content -->
+                            <div class="timeline-content">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                                    <h3 class="text-xl md:text-2xl font-semibold">{{ exp.role }}</h3>
+                                    <span class="text-accent text-sm font-bold mt-1 md:mt-0">{{ exp.period }}</span>
+                                </div>
+                                <p class="text-lg text-cream/70 mb-4">{{ exp.company }} <span class="text-cream/40">· {{ exp.location }}</span></p>
+                                <ul class="achievement-list">
+                                    <li v-for="(achievement, i) in exp.achievements" :key="i" 
+                                        class="text-cream/60 text-sm">
+                                        {{ achievement }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="section-divider max-w-7xl mx-auto"></div>
+            
+            <!-- SKILLS SECTION - Marquee -->
+            <section class="py-20 overflow-hidden" ref="skillsSection" id="skills" aria-labelledby="skills-heading">
+                <div class="px-8 lg:px-20 mb-12">
+                    <h2 id="skills-heading" class="text-sm tracking-widest uppercase text-cream/50 reveal">Technical Skills</h2>
+                </div>
+                
+                <!-- Marquee Row 1 -->
+                <div class="marquee-container mb-6 reveal">
+                    <div class="marquee-content">
+                        <div v-for="skill in [...profileData.technicalSkills, ...profileData.technicalSkills]" :key="skill" 
+                             class="skill-tag mx-3">
+                            {{ skill }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Marquee Row 2 - Reverse -->
+                <div class="marquee-container reveal">
+                    <div class="marquee-content" style="animation-direction: reverse;">
+                        <div v-for="skill in [...profileData.officeSkills, ...profileData.officeSkills]" :key="skill" 
+                             class="skill-tag mx-3 border-cream/5">
+                            {{ skill }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="section-divider max-w-7xl mx-auto"></div>
+            
+            <!-- FOOTER - Contact -->
+            <section class="min-h-[70vh] flex flex-col justify-center px-8 lg:px-20 py-20" ref="footerSection" id="contact" aria-labelledby="contact-heading">
+                <div class="max-w-5xl mx-auto w-full text-center">
+                    <h2 id="contact-heading" class="footer-title mb-8 reveal">
+                        Let's <span class="text-accent">Collaborate!</span>
+                    </h2>
+                    
+                    <p class="text-base md:text-lg text-cream/60 mb-12 max-w-4xl mx-auto leading-relaxed reveal">
+                        My passion lies in exploring new projects and opportunities, constantly seeking avenues for growth and innovation. I'm eager to leverage my data rigor and cross-border collaboration experience to deliver a scalable, user-centric solution for your retail and professional investors.
+                    </p>
+                    
+                    <!-- CTA Button -->
+                    <a :href="'mailto:' + profileData.email" class="btn-accent magnetic-link reveal" ref="ctaButton">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        Get In Touch
+                    </a>
+                    
+                    <!-- Contact Info -->
+                    <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto reveal">
+                        <div class="glass rounded-2xl p-6">
+                            <i data-lucide="mail" class="w-6 h-6 text-accent mx-auto mb-3"></i>
+                            <p class="text-sm text-cream/50 mb-1">Email</p>
+                            <a :href="'mailto:' + profileData.email" class="magnetic-link hover:text-accent transition-colors text-sm">
+                                {{ profileData.email }}
+                            </a>
+                        </div>
+                        <div class="glass rounded-2xl p-6">
+                            <i data-lucide="phone" class="w-6 h-6 text-accent mx-auto mb-3"></i>
+                            <p class="text-sm text-cream/50 mb-1">Phone</p>
+                            <a :href="'tel:' + profileData.phone" class="magnetic-link hover:text-accent transition-colors">
+                                {{ profileData.phone }}
+                            </a>
+                        </div>
+                        <div class="glass rounded-2xl p-6">
+                            <i data-lucide="message-circle" class="w-6 h-6 text-accent mx-auto mb-3"></i>
+                            <p class="text-sm text-cream/50 mb-1">WhatsApp</p>
+                            <a :href="'https://wa.me/' + profileData.whatsapp.replace(/\D/g, '')" target="_blank" 
+                               class="magnetic-link hover:text-accent transition-colors">
+                                {{ profileData.whatsapp }}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer Bottom -->
+                    <div class="mt-20 pt-8 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-4 reveal">
+                        <p class="text-sm text-cream/40">
+                            © {{ new Date().getFullYear() }} {{ profileData.name }}. All rights reserved.
+                        </p>
+                        <p class="text-sm text-cream/40">
+                            Crafted with precision & passion
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+    </div>
+
+    <script>
+        // ============================================
+        // PROFILE DATA - Easy Configuration
+        // ============================================
+        const profileData = {
+            // Personal Info
+            name: "Kaiman Chen",
+            firstName: "Kaiman",
+            titles: ["QA Engineer", "Data Analyst"],
+            currentCompany: "Tata Consultancy Services",
+            location: "Hong Kong",
+            experienceYears: 3,
+            
+            // Contact
+            email: "diana.ckm0703@gmail.com",
+            phone: "+852 52277360",
+            whatsapp: "+86 18986207973",
+            
+            // Bio
+            bio: "A detail-oriented professional with a strong background in data analysis and business intelligence.",
+            
+            // Tags (removed Automation)
+            tags: ["Quality Assurance", "Data Analytics", "Risk Analysis"],
+            
+            // Education
+            education: [
+                {
+                    degree: "Master in Operational Research & Risk Analysis",
+                    school: "The Hong Kong Polytechnic University",
+                    period: "2023 - 2025"
+                },
+                {
+                    degree: "Bachelor in Statistics & Mathematics",
+                    school: "University of Toronto",
+                    period: "2016 - 2021"
+                }
+            ],
+            
+            // Publications
+            publications: [
+                {
+                    title: "Collaborative Scheduling of On-Site and Off-Site Operations in Prefabrication",
+                    type: "S.C.I.",
+                    journal: "Sustainability, 12(21), 9266, 2020"
+                },
+                {
+                    title: "Complexity measurement of Eco-residential district construction system based on structural equation model",
+                    type: "E.I.",
+                    journal: "Applied Mechanics and Materials, Vol: 641-642, 2014"
+                }
+            ],
+            
+            // Experience - All achievements included
+            experience: [
+                {
+                    role: "QA Engineer",
+                    company: "Tata Consultancy Services Co., Ltd.",
+                    location: "Hong Kong",
+                    period: "Feb 2025 - Present",
+                    achievements: [
+                        "Responsible for UAT signoff and maintenance on 5 projects across WEB, Mobile and WCMP platforms, achieving zero post-release defects and ensuring user experience",
+                        "Designed user stories and 3,000+ test cases, developed test scopes, and logged 200+ defects in Jira",
+                        "Directed daily triage meeting with stakeholders, optimizing issue resolution cycles by 30%",
+                        "Generated comprehensive project reports, ensuring on-time delivery and raising client satisfaction to 95%",
+                        "Implemented a robust multitasking strategy to ensure thorough data analysis coverage and top-tier quality delivery across multiple project phases concurrently",
+                        "Utilized Python and Selenium automation scripts to streamline data analysis processes, achieving 20% increase in testing efficiency"
+                    ]
+                },
+                {
+                    role: "Data Analyst",
+                    company: "HanShang Group Co., Ltd.",
+                    location: "Wuhan, China",
+                    period: "Oct 2022 - Aug 2023",
+                    achievements: [
+                        "Optimize mall incentives based on budget and subsidies to increase customer retention rate by 17%",
+                        "Forecast marketing activities using SQL and AWS to optimize the operation strategy",
+                        "Evaluate and visualize profit data (VBA) in monthly business analysis report for COO",
+                        "Investigate functionality, branding and interior structure of shopping malls for renovation orientation",
+                        "Analyze the accessibility, circulation, and demographic characteristics for renovation implementation",
+                        "Proposed an ecological integration scheme and recognized by the head of the department and COO",
+                        "Contact with tech company for launching the CRM and ERP system, and train a division to operate"
+                    ]
+                },
+                {
+                    role: "Business Data Analyst",
+                    company: "Hong Kong Science and Technology Parks - UB Fox Co., Ltd.",
+                    location: "Hong Kong",
+                    period: "Jul 2024 - Sep 2024",
+                    achievements: [
+                        "Complete the draft of the business plan and prepare presentation materials using Figma for roadshow",
+                        "Gain investment from Spanish investors using marketing strategy and pricing strategy",
+                        "Expand 50 users by contacting with 5 MCN companies and 10 individual KOLs for product promotion",
+                        "Conduct product testing, establish the first UAT phase, and write testing reports for Founders",
+                        "Analyze user behavior, write data monitoring and develop data tracking algorithms in Python and SQL"
+                    ]
+                },
+                {
+                    role: "Data Analyst",
+                    company: "CITIC Group - CITIC Digital Intelligence Co., Ltd.",
+                    location: "Wuhan, China",
+                    period: "May 2022 - Sep 2022",
+                    achievements: [
+                        "Build demand pools, conduct product testing and improve the utilization by 15%",
+                        "Conducted competitor analysis (14 products), wrote BRD and MRD independently",
+                        "Participate in project planning, write presentation reports for the CITIC Group and the government",
+                        "Help solving flashback problems and shorten the upload speed of large-capacity files for the product"
+                    ]
+                }
+            ],
+            
+            // Skills
+            technicalSkills: [
+                "Python", "R", "SQL", "SAS", "MATLAB", 
+                "Power BI", "Tableau", "Selenium", "AWS", "Jira"
+            ],
+            officeSkills: [
+                "Microsoft Office", "Excel VBA", "Visio", "Axure", "Figma"
+            ]
+        };
+
+        // ============================================
+        // VUE APP
+        // ============================================
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+        
+        createApp({
+            setup() {
+                const cursor = ref(null);
+                const cursorFollower = ref(null);
+                const heroSection = ref(null);
+                const heroName = ref(null);
+                const heroTitle = ref(null);
+                const exploreBtn = ref(null);
+                const aboutSection = ref(null);
+                const experienceSection = ref(null);
+                const skillsSection = ref(null);
+                const footerSection = ref(null);
+                const ctaButton = ref(null);
+                
+                // Mouse position for custom cursor
+                let mouseX = 0;
+                let mouseY = 0;
+                let cursorX = 0;
+                let cursorY = 0;
+                let followerX = 0;
+                let followerY = 0;
+                let rafId = null;
+                
+                const initCursor = () => {
+                    if (window.matchMedia('(pointer: coarse)').matches) return;
+                    
+                    const animate = () => {
+                        // Smooth follow
+                        cursorX += (mouseX - cursorX) * 0.2;
+                        cursorY += (mouseY - cursorY) * 0.2;
+                        followerX += (mouseX - followerX) * 0.1;
+                        followerY += (mouseY - followerY) * 0.1;
+                        
+                        if (cursor.value) {
+                            cursor.value.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+                        }
+                        if (cursorFollower.value) {
+                            cursorFollower.value.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+                        }
+                        
+                        rafId = requestAnimationFrame(animate);
+                    };
+                    
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                    });
+                    
+                    // Magnetic effect for links and buttons
+                    document.querySelectorAll('.magnetic-link, .explore-btn').forEach(el => {
+                        el.addEventListener('mouseenter', () => {
+                            if (cursor.value) cursor.value.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px) scale(1.5)`;
+                        });
+                        el.addEventListener('mouseleave', () => {
+                            if (cursor.value) cursor.value.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px) scale(1)`;
+                        });
+                    });
+                    
+                    animate();
+                };
+                
+                const scrollToAbout = () => {
+                    const aboutEl = document.getElementById('about');
+                    if (aboutEl) {
+                        gsap.to(window, {
+                            duration: 1.2,
+                            scrollTo: { y: aboutEl, offsetY: 0 },
+                            ease: "power3.inOut"
+                        });
+                    }
+                };
+                
+                const initAnimations = () => {
+                    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+                    
+                    // Hero Name Animation - Character by character
+                    const chars = heroName.value.querySelectorAll('.hero-char');
+                    gsap.to(chars, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        stagger: 0.05,
+                        ease: "power4.out",
+                        delay: 0.3
+                    });
+                    
+                    // Hero Title Animation
+                    gsap.from(heroTitle.value, {
+                        opacity: 0,
+                        y: 50,
+                        duration: 1,
+                        ease: "power3.out",
+                        delay: 0.8
+                    });
+                    
+                    // Explore Button Animation
+                    gsap.from(exploreBtn.value, {
+                        opacity: 0,
+                        y: 30,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        delay: 1.2
+                    });
+                    
+                    // Scroll Reveal Animations
+                    const reveals = document.querySelectorAll('.reveal');
+                    reveals.forEach(el => {
+                        gsap.to(el, {
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 85%",
+                                toggleActions: "play none none reverse"
+                            },
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            ease: "power3.out"
+                        });
+                    });
+                    
+                    // Parallax for hero section
+                    gsap.to(heroName.value, {
+                        scrollTrigger: {
+                            trigger: heroSection.value,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: 1
+                        },
+                        y: -100,
+                        opacity: 0.3
+                    });
+                    
+                    // CTA Button pulse animation
+                    gsap.to(ctaButton.value, {
+                        boxShadow: "0 0 60px rgba(255, 239, 0, 0.6)",
+                        duration: 1.5,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut"
+                    });
+                };
+                
+                onMounted(() => {
+                    // Initialize Lucide icons
+                    lucide.createIcons();
+                    
+                    // Initialize custom cursor
+                    initCursor();
+                    
+                    // Initialize GSAP animations
+                    initAnimations();
+                });
+                
+                onUnmounted(() => {
+                    if (rafId) cancelAnimationFrame(rafId);
+                    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+                });
+                
+                return {
+                    profileData,
+                    cursor,
+                    cursorFollower,
+                    heroSection,
+                    heroName,
+                    heroTitle,
+                    exploreBtn,
+                    aboutSection,
+                    experienceSection,
+                    skillsSection,
+                    footerSection,
+                    ctaButton,
+                    scrollToAbout
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
